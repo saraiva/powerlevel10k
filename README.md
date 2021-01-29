@@ -89,7 +89,7 @@ Note how the effect of every command is instantly reflected by the very next pro
 
 | Command                       | Prompt Indicator | Meaning                                                               |
 |-------------------------------|:----------------:|----------------------------------------------------------------------:|
-| `timew start hack linux`      | `🛡️ hack linux`  | time tracking enabled in [timewarrior](https://timewarrior.net/)      |
+| `timew start hack linux`      | `⌚ hack linux`  | time tracking enabled in [timewarrior](https://timewarrior.net/)      |
 | `touch x y`                   | `?2`             | 2 untracked files in the Git repo                                     |
 | `rm COPYING`                  | `!1`             | 1 unstaged change in the Git repo                                     |
 | `echo 3.7.3 >.python-version` | `🐍 3.7.3`       | the current python version in [pyenv](https://github.com/pyenv/pyenv) |
@@ -421,7 +421,7 @@ supported by Powerlevel10k.
 
 ```zsh
 brew install romkatv/powerlevel10k/powerlevel10k
-echo 'source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+echo "source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 ```
 
 ### Arch Linux
@@ -566,6 +566,10 @@ applications on your system. Configure your terminal to use this font:
 - **Guake**: Right Click on an open terminal and open *Preferences*. Under *Appearance*
   tab, uncheck *Use the system fixed width font* (if not already) and select `MesloLGS NF Regular`.
   Exit the Preferences dialog by clicking *Close*.
+- **MobaXterm**: Open *Settings* → *Configuration* → *Terminal* → (Under *Terminal look and feel*)
+  and change *Font* to `MesloLGS NF`.
+- **WSLtty**: Right click on an open terminal and then on *Options*. In the *Text* section, under
+  *Font*, click *"Select..."* and set Font to `MesloLGS NF Regular`.
 - **Alacritty**: Create or open `~/.config/alacritty/alacritty.yml` and add the following section
   to it:
   ```yaml

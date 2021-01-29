@@ -7173,7 +7173,7 @@ _p9k_init_params() {
   _p9k_declare -s POWERLEVEL9K_IP_INTERFACE ""
   : ${_POWERLEVEL9K_IP_INTERFACE:='.*'}
   _p9k_segment_in_use ip || _POWERLEVEL9K_IP_INTERFACE=
-  _p9k_declare -s POWERLEVEL9K_VPN_IP_INTERFACE "(gpd|wg|(.*tun))[0-9]*"
+  _p9k_declare -s POWERLEVEL9K_VPN_IP_INTERFACE "(gpd|wg|(.*tun)|tailscale)[0-9]*"
   : ${_POWERLEVEL9K_VPN_IP_INTERFACE:='.*'}
   _p9k_segment_in_use vpn_ip || _POWERLEVEL9K_VPN_IP_INTERFACE=
   _p9k_declare -b POWERLEVEL9K_VPN_IP_SHOW_ALL 0
@@ -7584,9 +7584,15 @@ function _p9k_wrap_widgets() {
     if (( ! $+functions[_p9k_widget_$widget] )); then
       functions[_p9k_widget_$widget]='_p9k_widget '${(q)widget}' "$@"'
     fi
-    # The leading dot is to work around bugs in zsh-syntax-highlighting.
-    zle -A $widget ._p9k_orig_$widget
-    zle -N $widget _p9k_widget_$widget
+    if [[ $widget == zle-* &&
+          $widgets[$widget] == user:azhw:* &&
+          $functions[add-zle-hook-widget] ]]; then
+      add-zle-hook-widget $widget _p9k_widget_$widget
+    else
+      # The leading dot is to work around bugs in zsh-syntax-highlighting.
+      zle -A $widget ._p9k_orig_$widget
+      zle -N $widget _p9k_widget_$widget
+    fi
   done 2>/dev/null  # `zle -A` fails for inexisting widgets and complains to stderr
 }
 
